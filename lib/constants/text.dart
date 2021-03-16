@@ -56,7 +56,7 @@ class ShadowBoldText extends StatelessWidget {
           fontWeight: FontWeight.bold,
           shadows: [
             Shadow(
-              blurRadius: 2,
+              blurRadius: 1,
               offset: Offset(1, 1),
             ),
           ]),
