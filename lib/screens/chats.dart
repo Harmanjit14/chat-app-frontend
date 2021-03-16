@@ -19,7 +19,8 @@ class _AllChatsState extends State<AllChats> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-          elevation: 0,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey,
           showUnselectedLabels: false,
           currentIndex: page,
           onTap: (value) {
@@ -60,7 +61,9 @@ class _AllChatsState extends State<AllChats> {
           ),
         ],
         onPageChanged: (value) {
-          page = value;
+          setState(() {
+            page = value;
+          });
         },
       ),
     );
