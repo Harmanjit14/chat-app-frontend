@@ -1,5 +1,6 @@
 // import 'package:Huddle/models/themedata.dart';
 import 'package:Huddle/constants/text.dart';
+import 'package:Huddle/screens/chats.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,31 +15,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Huddle',
       theme: ThemeData.light(),
-      home: Theme(),
-    );
-  }
-}
-
-class Theme extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.adb),
-        onPressed: () {
-          Get.changeTheme(
-              Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
-        },
-      ),
-      body: Container(
-        child: Center(
-          child: ShadowBoldText(
-            text: "Hello World",
-            color: Colors.black,
-            size: 30,
-          ),
-        ),
-      ),
+      home: AllChats(),
     );
   }
 }
