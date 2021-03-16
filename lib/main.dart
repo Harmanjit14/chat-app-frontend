@@ -1,4 +1,5 @@
 // import 'package:Huddle/models/themedata.dart';
+import 'package:Huddle/constants/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +32,11 @@ class Theme extends StatelessWidget {
       ),
       body: Container(
         child: Center(
-          child: Text("Hello World!"),
+          child: ShadowBoldText(
+            text: "Hello World",
+            color: Colors.black,
+            size: 30,
+          ),
         ),
       ),
     );
