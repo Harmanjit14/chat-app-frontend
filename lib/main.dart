@@ -1,6 +1,6 @@
 // import 'package:Huddle/models/themedata.dart';
 // import 'package:Huddle/constants/text.dart';
-import 'package:Huddle/screens/chats.dart';
+import 'package:Huddle/screens/holder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

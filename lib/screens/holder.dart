@@ -1,4 +1,5 @@
 import 'package:Huddle/constants/text.dart';
+import 'package:Huddle/screens/settings.dart';
 import 'package:flutter/material.dart';
 
 class AllChats extends StatefulWidget {
@@ -51,14 +52,7 @@ class _AllChatsState extends State<AllChats> {
               size: 30,
             )),
           ),
-          Container(
-            child: Center(
-                child: ShadowBoldText(
-              color: Colors.black,
-              text: "Page 2",
-              size: 30,
-            )),
-          ),
+          Profile(),
         ],
         onPageChanged: (value) {
           setState(() {
