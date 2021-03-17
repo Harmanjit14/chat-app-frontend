@@ -1,3 +1,4 @@
+import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,7 @@ class Profile extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                     height: 150,
-                    width: 150,
+                    width: 130,
                     decoration: BoxDecoration(
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10)),
@@ -44,6 +45,37 @@ class Profile extends StatelessWidget {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(10)),
                       ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                    height: 40,
+                    width: 150,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Icon(
+                          (myprofile.verified.value)
+                              ? Icons.verified
+                              : Icons.error,
+                          color: (myprofile.verified.value)
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                        SizedBox(width: 7),
+                        BoldText(
+                          text: (myprofile.verified.value)
+                              ? "Verified"
+                              : "Not Verified",
+                          color: Colors.grey,
+                          size: 14,
+                        ),
+                      ],
                     ),
                   ),
                 ),
