@@ -4,8 +4,29 @@ import 'package:flutter/material.dart';
 class Messaging extends StatelessWidget {
   Widget chatbox(String image,String name, String lastmsg, String time){
     return Container(
-        
-    ),
+      margin: EdgeInsets.fromLTRB(20, 30, 20, 0),
+        child: Row(
+          children: [
+            Container(
+              child: CircleAvatar(backgroundImage: AssetImage(image),),
+            ),
+            Expanded(
+                          child: Container(
+                margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
+                child: Column(
+                  children: [
+                    RegularText(text: name,color: Colors.black,size: 16,),
+                    RegularText(text: lastmsg,color: Colors.black,size: 10,),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              child: Text(time),
+            ),
+          ],
+        ),
+    );
   }
   @override
   Widget build(BuildContext context) {
@@ -62,7 +83,7 @@ class Messaging extends StatelessWidget {
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
               children: [
-
+                chatbox("assets/gurleen.jpeg", "Gurleen", "HI!", "15:57")
               ],
             ),
         ],
