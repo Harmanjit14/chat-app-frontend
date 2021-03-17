@@ -83,6 +83,22 @@ class Profile extends StatelessWidget {
               alignment: Alignment.topCenter,
             ),
           ),
+          Container(
+            margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
+            child: BoldText(
+              text: myprofile.name.value,
+              color: Colors.black,
+              size: 20,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+            child: RegularText(
+              text: myprofile.email.value,
+              color: Colors.grey[600],
+              size: 15,
+            ),
+          ),
         ],
       ),
     );
