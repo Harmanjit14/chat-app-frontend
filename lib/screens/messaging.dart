@@ -7,19 +7,23 @@ class Messaging extends StatelessWidget {
   final indexController = Get.put(MessageIndex());
   Widget chatbox(String image,String name, String lastmsg, String time){
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 30, 20, 0),
+      height: 70,
+      margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
         child: Row(
           children: [
             Container(
-              child: CircleAvatar(backgroundImage: AssetImage(image),),
+              child: CircleAvatar(backgroundImage: AssetImage(image),radius: 30,),
             ),
             Expanded(
                           child: Container(
+                            alignment: Alignment.centerLeft,
                 margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RegularText(text: name,color: Colors.black,size: 16,),
-                    RegularText(text: lastmsg,color: Colors.black,size: 10,),
+                    RegularText(text: name,color: Colors.black,size: 20,),
+                    RegularText(text: lastmsg,color: Colors.black,size: 15,),
                   ],
                 ),
               ),
@@ -111,7 +115,9 @@ class Messaging extends StatelessWidget {
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             children: [
-              chatbox("assets/gurleen.jpeg", "Gurleen", "Hellooo!", "4:11pm")
+              chatbox("assets/gurleen.jpeg", "Gurleen", "Hellooo!", "4:11pm"),
+              Divider(),
+              chatbox("assets/harman.jpeg", "Harman", "Hieeeeeeeeee!", "4:16pm"),
             ],
           ),
         ],
