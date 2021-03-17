@@ -68,13 +68,17 @@ class Profile extends StatelessWidget {
                               : Colors.red,
                         ),
                         SizedBox(width: 7),
-                        BoldText(
-                          text: (myprofile.verified.value)
-                              ? "Verified"
-                              : "Not Verified",
-                          color: Colors.grey,
-                          size: 14,
-                        ),
+                        Obx(
+                          () => BoldText(
+                            text: (myprofile.verified.value)
+                                ? "Verified"
+                                : "Not Verified",
+                            color: (themedata.isDark.value)
+                                ? Colors.grey[300]
+                                : Colors.grey,
+                            size: 14,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -94,13 +98,16 @@ class Profile extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-            child: RegularText(
-              text: myprofile.email.value,
-              color: Colors.grey[600],
-              size: 15,
-            ),
-          ),
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Obx(
+                () => RegularText(
+                  text: myprofile.email.value,
+                  color: (themedata.isDark.value)
+                      ? Colors.grey[350]
+                      : Colors.grey[600],
+                  size: 15,
+                ),
+              )),
           SizedBox(height: 50),
           ElevatedButton(
             style: ButtonStyle(
