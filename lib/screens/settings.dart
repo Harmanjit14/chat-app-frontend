@@ -1,3 +1,4 @@
+import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,7 @@ class Profile extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                     height: 150,
-                    width: 150,
+                    width: 130,
                     decoration: BoxDecoration(
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10)),
@@ -47,8 +48,102 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                    height: 40,
+                    width: 150,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Icon(
+                          (myprofile.verified.value)
+                              ? Icons.verified
+                              : Icons.error,
+                          color: (myprofile.verified.value)
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                        SizedBox(width: 7),
+                        BoldText(
+                          text: (myprofile.verified.value)
+                              ? "Verified"
+                              : "Not Verified",
+                          color: Colors.grey,
+                          size: 14,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
               alignment: Alignment.topCenter,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
+            child: BoldText(
+              text: myprofile.name.value,
+              color: Colors.black,
+              size: 20,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+            child: RegularText(
+              text: myprofile.email.value,
+              color: Colors.grey[600],
+              size: 15,
+            ),
+          ),
+          SizedBox(height: 50),
+          ElevatedButton(
+            style: ButtonStyle(
+              enableFeedback: true,
+            ),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.lock,size: 30,),
+                  SizedBox(width: 20),
+                  Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BoldText(
+                          text: "Profile",
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        RegularText(text: "privacy, location, statistics",color: Colors.grey[200],),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            style: ButtonStyle(
+              enableFeedback: true,
+            ),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: BoldText(
+                text: "Profile",
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
         ],
