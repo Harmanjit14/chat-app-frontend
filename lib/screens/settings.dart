@@ -1,16 +1,16 @@
 import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/models/profile.dart';
+import 'package:Huddle/models/themedata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// ignore: must_be_immutable
 class Profile extends StatelessWidget {
-  MyProfile myprofile = Get.put(MyProfile());
+  final myprofile = Get.put(MyProfile());
+  final themedata = Get.put(ThemeChanger());
   @override
   Widget build(BuildContext context) {
     myprofile.email.value = "harmanjit@gmail.com";
     myprofile.name.value = "Harmanjit Singh";
-    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: ListView(
         padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -85,10 +85,12 @@ class Profile extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
-            child: BoldText(
-              text: myprofile.name.value,
-              color: Colors.black,
-              size: 20,
+            child: Obx(
+              () => BoldText(
+                text: myprofile.name.value,
+                color: (themedata.isDark.value) ? Colors.white : Colors.black,
+                size: 20,
+              ),
             ),
           ),
           Container(
@@ -110,7 +112,10 @@ class Profile extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.lock,size: 30,),
+                  Icon(
+                    Icons.lock,
+                    size: 30,
+                  ),
                   SizedBox(width: 20),
                   Container(
                     width: 200,
@@ -123,7 +128,10 @@ class Profile extends StatelessWidget {
                           color: Colors.white,
                           size: 20,
                         ),
-                        RegularText(text: "privacy, location, statistics",color: Colors.grey[200],),
+                        RegularText(
+                          text: "privacy, location, statistics",
+                          color: Colors.grey[200],
+                        ),
                       ],
                     ),
                   ),
@@ -136,16 +144,44 @@ class Profile extends StatelessWidget {
             style: ButtonStyle(
               enableFeedback: true,
             ),
-            onPressed: () {},
+            onPressed: () {
+              themedata.isDark.value = (Get.isDarkMode ? false : true);
+              Get.changeTheme(
+                  Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
+            },
             child: Container(
               padding: EdgeInsets.all(10),
-              child: BoldText(
-                text: "Profile",
-                color: Colors.white,
-                size: 20,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.message,
+                    size: 30,
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BoldText(
+                          text: "Chats",
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        RegularText(
+                          text: "theme, wallpaper, history",
+                          color: Colors.grey[200],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
+          SizedBox(height: 10),
         ],
       ),
     );
