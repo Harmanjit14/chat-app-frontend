@@ -2,6 +2,11 @@ import 'package:Huddle/constants/text.dart';
 import 'package:flutter/material.dart';
 
 class Messaging extends StatelessWidget {
+  Widget chatbox(String image,String name, String lastmsg, String time){
+    return Container(
+        
+    ),
+  }
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
@@ -16,26 +21,49 @@ class Messaging extends StatelessWidget {
             child: ShadowBoldText(color: Colors.black,text: "Message",size: 40,)
             ),
             Container(
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
               height: 60,
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
                 color: Colors.grey[200],
               ),
              child: Row(
                children: [
                  Expanded(
                    child: Container(
+                     child: ClipRRect(
+                       borderRadius: BorderRadius.circular(10),
+                                            child: ElevatedButton(
+                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.white)),
+                         onPressed: () {},
+                         child: Container(
+                           child: RegularText(text: "Latest",color: Colors.black, size: 15),
+                         ),
+                         ),
+                     ),
+                   ),
+                   ),
+                   SizedBox(width: 10,height: 60,),
+                   Expanded(
+                   child: Container(
                      child: ElevatedButton(
                        onPressed: () {},
                        child: Container(
-                         child: RegularText(text: "Latest",color: Colors.black, size: 20,),
+                         child: RegularText(text: "Latest",color: Colors.black, size: 15,),
                        ),
                        ),
                    ),
-                   )
+                   ),
                ],
              ),
+            ),
+            ListView(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              children: [
+
+              ],
             ),
         ],
       ),
