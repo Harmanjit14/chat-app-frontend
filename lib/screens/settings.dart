@@ -99,6 +99,53 @@ class Profile extends StatelessWidget {
               size: 15,
             ),
           ),
+          SizedBox(height: 50),
+          ElevatedButton(
+            style: ButtonStyle(
+              enableFeedback: true,
+            ),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.lock,size: 30,),
+                  SizedBox(width: 20),
+                  Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BoldText(
+                          text: "Profile",
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        RegularText(text: "privacy, location, statistics",color: Colors.grey[200],),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            style: ButtonStyle(
+              enableFeedback: true,
+            ),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: BoldText(
+                text: "Profile",
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ),
         ],
       ),
     );
