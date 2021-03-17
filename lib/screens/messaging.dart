@@ -16,12 +16,26 @@ class Messaging extends StatelessWidget {
             child: ShadowBoldText(color: Colors.black,text: "Message",size: 40,)
             ),
             Container(
-              height: 200,
+              height: 60,
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.grey[200],
               ),
+             child: Row(
+               children: [
+                 Expanded(
+                   child: Container(
+                     child: ElevatedButton(
+                       onPressed: () {},
+                       child: Container(
+                         child: RegularText(text: "Latest",color: Colors.black, size: 20,),
+                       ),
+                       ),
+                   ),
+                   )
+               ],
+             ),
             ),
         ],
       ),
