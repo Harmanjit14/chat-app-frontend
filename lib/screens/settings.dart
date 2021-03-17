@@ -68,13 +68,17 @@ class Profile extends StatelessWidget {
                               : Colors.red,
                         ),
                         SizedBox(width: 7),
-                        BoldText(
-                          text: (myprofile.verified.value)
-                              ? "Verified"
-                              : "Not Verified",
-                          color: Colors.grey,
-                          size: 14,
-                        ),
+                        Obx(
+                          () => BoldText(
+                            text: (myprofile.verified.value)
+                                ? "Verified"
+                                : "Not Verified",
+                            color: (themedata.isDark.value)
+                                ? Colors.grey[300]
+                                : Colors.grey,
+                            size: 14,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -94,13 +98,16 @@ class Profile extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-            child: RegularText(
-              text: myprofile.email.value,
-              color: Colors.grey[600],
-              size: 15,
-            ),
-          ),
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Obx(
+                () => RegularText(
+                  text: myprofile.email.value,
+                  color: (themedata.isDark.value)
+                      ? Colors.grey[350]
+                      : Colors.grey[600],
+                  size: 15,
+                ),
+              )),
           SizedBox(height: 50),
           ElevatedButton(
             style: ButtonStyle(
@@ -175,6 +182,72 @@ class Profile extends StatelessWidget {
                           color: Colors.grey[200],
                         ),
                       ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            style: ButtonStyle(
+              enableFeedback: true,
+            ),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.notifications,
+                    size: 30,
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BoldText(
+                          text: "Notifications",
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        RegularText(
+                          text: "calls, messages",
+                          color: Colors.grey[200],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            style: ButtonStyle(
+                enableFeedback: true,
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.lock,
+                    size: 30,
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    width: 200,
+                    child: BoldText(
+                      text: "Logout",
+                      color: Colors.white,
+                      size: 20,
                     ),
                   ),
                 ],
