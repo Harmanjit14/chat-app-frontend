@@ -189,6 +189,72 @@ class Profile extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
+          ElevatedButton(
+            style: ButtonStyle(
+              enableFeedback: true,
+            ),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.notifications,
+                    size: 30,
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BoldText(
+                          text: "Notifications",
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        RegularText(
+                          text: "calls, messages",
+                          color: Colors.grey[200],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            style: ButtonStyle(
+                enableFeedback: true,
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.lock,
+                    size: 30,
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    width: 200,
+                    child: BoldText(
+                      text: "Logout",
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
         ],
       ),
     );
