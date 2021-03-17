@@ -16,16 +16,39 @@ class Profile extends StatelessWidget {
         shrinkWrap: true,
         children: [
           Container(
-            height: 300,
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+            height: 350,
             child: Stack(
               children: [
                 Container(
                   height: 300,
-                  child: Image.asset("assets/cover.webp",fit: BoxFit.cover,),
-                )
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.asset(
+                        "assets/cover.webp",
+                        fit: BoxFit.cover,
+                      )),
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    height: 150,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Container(
+                      padding: EdgeInsets.all(7),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  ),
+                ),
               ],
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.topCenter,
             ),
           ),
         ],
