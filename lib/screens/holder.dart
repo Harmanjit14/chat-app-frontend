@@ -1,4 +1,5 @@
 import 'package:Huddle/constants/text.dart';
+import 'package:Huddle/screens/messaging.dart';
 import 'package:Huddle/screens/settings.dart';
 import 'package:flutter/material.dart';
 
@@ -44,14 +45,7 @@ class _AllChatsState extends State<AllChats> {
         physics: BouncingScrollPhysics(),
         controller: controller,
         children: [
-          Container(
-            child: Center(
-                child: ShadowBoldText(
-              color: Colors.black,
-              text: "Page 1",
-              size: 30,
-            )),
-          ),
+          Messaging(),
           Profile(),
         ],
         onPageChanged: (value) {
