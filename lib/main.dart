@@ -1,6 +1,7 @@
 // import 'package:Huddle/models/themedata.dart';
 // import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/screens/holder.dart';
+import 'package:Huddle/screens/log_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Huddle',
       theme: ThemeData.light(),
-      home: AllChats(),
+      home: Login(),
     );
   }
 }
