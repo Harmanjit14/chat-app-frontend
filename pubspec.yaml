@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^3.26.0
   google_fonts: ^2.0.0
+  graphql: ^4.0.0-beta
 
 dev_dependencies:
   flutter_test:
