@@ -1,6 +1,8 @@
+import 'package:Huddle/models/profile.dart';
 import "package:graphql/client.dart";
 
 String token = "";
+MyProfile profile= new MyProfile();
 
 Future<bool> login(String username, String password) async{
   HttpLink _httpLink = HttpLink(
@@ -24,7 +26,8 @@ Future<bool> login(String username, String password) async{
     token
    
   }
-}""";
+}
+""";
 
 
   MutationOptions options = MutationOptions(
@@ -37,6 +40,7 @@ Future<bool> login(String username, String password) async{
     return false;
   }
   token = data.data["tokenAuth"]["token"];
+  await getProfile();
   return true;
 
 }
@@ -63,7 +67,7 @@ Future<bool> register(String username, String email,String password) async{
     __typename
   }
 }
-}""";
+""";
 
 
   MutationOptions options = MutationOptions(
@@ -75,6 +79,64 @@ Future<bool> register(String username, String email,String password) async{
     print(data.exception.toString());
     return false;
   }
+  return true;
+
+}
+
+Future<bool> getProfile() async{
+  HttpLink _httpLink = HttpLink(
+    'https://huddle-backend.herokuapp.com/graphql/',
+  );
+
+  AuthLink _authLink = AuthLink(
+    getToken: () async => 'JWT $token',
+  );
+
+  Link _link = _authLink.concat(_httpLink);
+  GraphQLClient client = GraphQLClient(
+    /// **NOTE** The default store is the InMemoryStore, which does NOT persist to disk
+    cache: GraphQLCache(),
+    link: _link,
+  );
+
+  String queryString = """
+  
+{
+  me{
+    user{
+      email
+    }
+    city
+    name
+    gender
+    city
+    state
+    country
+    id
+    image
+  }
+}
+""";
+
+
+  QueryOptions options = QueryOptions(
+    document: gql(queryString),
+  );
+
+  QueryResult data= await client.query(options);
+  if(data.hasException){
+    print(data.exception.toString());
+    return false;
+  }
+  var profiledata=data.data;
+  profile.name.value=profiledata["me"]["name"];
+  profile.email.value=profiledata["me"]["user"]["email"];
+  profile.city.value=profiledata["me"]["city"];
+  profile.isFemale.value=(profiledata["me"]["gender"]=="F")?true:false;
+  profile.state.value=profiledata["me"]["state"];
+  profile.country.value=profiledata["me"]["country"];
+  profile.id.value=profiledata["me"]["id"];
+  profile.image.value=profiledata["me"]["image"];
   return true;
 
 }

@@ -10,17 +10,17 @@ class ButtonLogin extends GetxController {
 }
 
 class LoginSreen extends StatelessWidget {
-   String username = "";
-   String password = "";
+  String username = "";
+  String password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-                      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
             Container(
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
               height: 70,
@@ -63,8 +63,8 @@ class LoginSreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onChanged: (value){
-                  username=value;
+                onChanged: (value) {
+                  username = value;
                 },
               ),
             ),
@@ -81,8 +81,8 @@ class LoginSreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onChanged: (value){
-                  password=value;
+                onChanged: (value) {
+                  password = value;
                 },
               ),
             ),
@@ -95,13 +95,11 @@ class LoginSreen extends StatelessWidget {
                     style: ButtonStyle(
                       elevation: MaterialStateProperty.all<double>(0),
                     ),
-                    onPressed: () async{
-                     
+                    onPressed: () async {
                       //TODO Harman yahaan button ki state management yaad rakhio...
-                      if(await login(username, password)){
-                      Get.offAll(AllChats());
-                      }
-                      else{
+                      if (await login(username, password)) {
+                        Get.offAll(() => AllChats());
+                      } else {
                         print("error");
                       }
                     },
@@ -111,9 +109,9 @@ class LoginSreen extends StatelessWidget {
                     ),
                   ),
                 )),
-        ],
-      ),
-          )),
+          ],
+        ),
+      )),
     );
   }
 }

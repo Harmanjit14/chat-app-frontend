@@ -1,16 +1,13 @@
 import 'package:Huddle/constants/text.dart';
-import 'package:Huddle/models/profile.dart';
 import 'package:Huddle/models/themedata.dart';
+import 'package:Huddle/server/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Profile extends StatelessWidget {
-  final myprofile = Get.put(MyProfile());
   final themedata = Get.put(ThemeChanger());
   @override
   Widget build(BuildContext context) {
-    myprofile.email.value = "harmanjit@gmail.com";
-    myprofile.name.value = "Harmanjit Singh";
     return SafeArea(
       child: ListView(
         padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -41,8 +38,11 @@ class Profile extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(7),
                       child: Container(
+                        child: Image.network(
+                          profile.image.value,
+                          fit: BoxFit.cover,
+                        ),
                         decoration: BoxDecoration(
-                            color: Colors.black,
                             borderRadius: BorderRadius.circular(10)),
                       ),
                     ),
@@ -60,17 +60,17 @@ class Profile extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Icon(
-                          (myprofile.verified.value)
+                          (profile.verified.value)
                               ? Icons.verified
                               : Icons.error,
-                          color: (myprofile.verified.value)
+                          color: (profile.verified.value)
                               ? Colors.green
                               : Colors.red,
                         ),
                         SizedBox(width: 7),
                         Obx(
                           () => BoldText(
-                            text: (myprofile.verified.value)
+                            text: (profile.verified.value)
                                 ? "Verified"
                                 : "Not Verified",
                             color: (themedata.isDark.value)
@@ -91,7 +91,7 @@ class Profile extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
             child: Obx(
               () => BoldText(
-                text: myprofile.name.value,
+                text: profile.name.value,
                 color: (themedata.isDark.value) ? Colors.white : Colors.black,
                 size: 20,
               ),
@@ -101,7 +101,7 @@ class Profile extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Obx(
                 () => RegularText(
-                  text: myprofile.email.value,
+                  text: profile.email.value,
                   color: (themedata.isDark.value)
                       ? Colors.grey[350]
                       : Colors.grey[600],

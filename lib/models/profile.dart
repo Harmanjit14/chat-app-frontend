@@ -9,24 +9,7 @@ class MyProfile extends GetxController {
   RxBool isFemale = false.obs;
   RxString city = "City".obs;
   RxString state = "State".obs;
+  RxString country = "Country".obs;
   
-  get getName => this.name;
 
-  set setName(name) => this.name = name;
-
-  get getId => this.id;
-
-  set setId(id) => this.id = id;
-
-  get getEmail => this.email;
-
-  set setEmail(email) => this.email = email;
-
-  get getVerified => this.verified;
-
-  set setVerified(verified) => this.verified = verified;
-
-  get getImage => this.image;
-
-  set setImage(image) => this.image = image;
 }
