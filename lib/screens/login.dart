@@ -79,22 +79,24 @@ class LoginSreen extends StatelessWidget {
               ),
             ),
           ),
-           Container(
-            margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-            child: TextField(
-              controller: password,
-              keyboardType: TextInputType.text,
-              obscureText: true,
-              obscuringCharacter: "*",
-              decoration: InputDecoration(
-                labelText: "Password",
-                prefixIcon: Icon(Icons.lock),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+          Container(
+              height: 60,
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all<double>(0),
+                  ),
+                  onPressed: () {
+                    
+                  },
+                  child: Container(
+                    child: BoldText(
+                        text: "Continue", color: Colors.white, size: 20),
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
         ],
       )),
     );

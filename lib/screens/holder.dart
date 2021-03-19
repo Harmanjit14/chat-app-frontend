@@ -1,4 +1,4 @@
-import 'package:Huddle/constants/text.dart';
+
 import 'package:Huddle/screens/messaging.dart';
 import 'package:Huddle/screens/settings.dart';
 import 'package:flutter/material.dart';
