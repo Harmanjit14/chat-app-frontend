@@ -228,8 +228,14 @@ class Registerscreen extends StatelessWidget {
                       // }
                     },
                     child: Container(
-                      child: BoldText(
-                          text: "Next", color: Colors.white, size: 20),
+                      child: TextButton(
+                      onPressed: () {
+                        Get.to(() => Profilescreen(),
+                            transition: Transition.native);
+                      },
+                      child:
+                          BoldText(text: "Next", color: Colors.white, size: 20),
+                      ),
                     ),
                   ),
                 )),
@@ -242,7 +248,7 @@ class Registerscreen extends StatelessWidget {
 
 class Profilescreen extends StatelessWidget {
   String name = "";
-  String gender = "";
+  String dropdownValue = "";
   String city = "";
   String state = "";
   @override
@@ -303,18 +309,26 @@ class Profilescreen extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: "Gender",
-                  prefixIcon: Icon(Icons.alternate_email_rounded),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
+              child: DropdownButton(
+                icon: const Icon(Icons.arrow_downward),
                 onChanged: (value) {
-                  gender = value;
+                  if(value==0){
+                    dropdownValue='M';
+                  }
+                  if(value==1){
+                    dropdownValue='F';
+                  }
+                  if(value==2){
+                    dropdownValue='O';
+                  }
                 },
+                items: <String>['Male', 'Female', 'Other']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
               ),
             ),
             Container(
@@ -371,8 +385,8 @@ class Profilescreen extends StatelessWidget {
                       // }
                     },
                     child: Container(
-                      child: BoldText(
-                          text: "Save", color: Colors.white, size: 20),
+                      child:
+                          BoldText(text: "Save", color: Colors.white, size: 20),
                     ),
                   ),
                 )),
@@ -382,6 +396,3 @@ class Profilescreen extends StatelessWidget {
     );
   }
 }
-
-
-
