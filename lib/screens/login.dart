@@ -234,7 +234,7 @@ class Registerscreen extends StatelessWidget {
                             transition: Transition.native);
                       },
                       child:
-                          BoldText(text: "Next", color: Colors.white, size: 20),
+                          BoldText(text: "Next", color: Colors.pink, size: 20),
                       ),
                     ),
                   ),
