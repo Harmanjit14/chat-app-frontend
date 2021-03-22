@@ -63,7 +63,7 @@ class Login extends StatelessWidget {
                         color: Colors.blue[700]),
                     child: TextButton(
                       onPressed: () {
-                        Get.to(() => LoginSreen(),
+                        Get.to(() => Registerscreen(),
                             transition: Transition.native);
                       },
                       child: BoldText(
