@@ -335,11 +335,9 @@ class Profilescreen extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: TextField(
                 keyboardType: TextInputType.text,
-                obscureText: true,
-                obscuringCharacter: "*",
                 decoration: InputDecoration(
                   labelText: "City",
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(Icons.account_circle),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -353,11 +351,9 @@ class Profilescreen extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: TextField(
                 keyboardType: TextInputType.text,
-                obscureText: true,
-                obscuringCharacter: "*",
                 decoration: InputDecoration(
                   labelText: "State",
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(Icons.account_circle),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -367,6 +363,7 @@ class Profilescreen extends StatelessWidget {
                 },
               ),
             ),
+           
             Container(
                 height: 60,
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
