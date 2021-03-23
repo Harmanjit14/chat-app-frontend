@@ -2,9 +2,9 @@ import 'package:Huddle/models/profile.dart';
 import "package:graphql/client.dart";
 
 String token = "";
-MyProfile profile= new MyProfile();
+MyProfile profile = new MyProfile();
 
-Future<bool> login(String username, String password) async{
+Future<bool> login(String username, String password) async {
   HttpLink _httpLink = HttpLink(
     'https://huddle-backend.herokuapp.com/graphql/',
   );
@@ -29,23 +29,22 @@ Future<bool> login(String username, String password) async{
 }
 """;
 
-
   MutationOptions options = MutationOptions(
     document: gql(mutationString),
   );
 
-  QueryResult data= await client.mutate(options);
-  if(data.hasException){
+  QueryResult data = await client.mutate(options);
+  if (data.hasException) {
     print(data.exception.toString());
     return false;
   }
   token = data.data["tokenAuth"]["token"];
   await getProfile();
   return true;
-
 }
 
-Future<bool> register(String username, String email,String password) async{
+Future<bool> register(String username, String email, String password,
+    String name, String gender, String city, String state) async {
   HttpLink _httpLink = HttpLink(
     'https://huddle-backend.herokuapp.com/graphql/',
   );
@@ -62,28 +61,29 @@ Future<bool> register(String username, String email,String password) async{
   );
 
   String mutationString = """
-  mutation{
-  createUser(username:"test1",password:"123456",email:"test@abc.com"){
+   mutation{
+  createUser(username:"$username",password:"$password",email:"$email",name:"$name",city:"$city",state:"$state",gender:"$gender"){
     __typename
   }
 }
 """;
 
-
   MutationOptions options = MutationOptions(
     document: gql(mutationString),
   );
 
-  QueryResult data= await client.mutate(options);
-  if(data.hasException){
+  QueryResult data = await client.mutate(options);
+  if (data.hasException) {
     print(data.exception.toString());
     return false;
   }
-  return true;
-
+  if (await login(username, password)) {
+    return true;
+  }
+  return false;
 }
 
-Future<bool> getProfile() async{
+Future<bool> getProfile() async {
   HttpLink _httpLink = HttpLink(
     'https://huddle-backend.herokuapp.com/graphql/',
   );
@@ -118,25 +118,23 @@ Future<bool> getProfile() async{
 }
 """;
 
-
   QueryOptions options = QueryOptions(
     document: gql(queryString),
   );
 
-  QueryResult data= await client.query(options);
-  if(data.hasException){
+  QueryResult data = await client.query(options);
+  if (data.hasException) {
     print(data.exception.toString());
     return false;
   }
-  var profiledata=data.data;
-  profile.name.value=profiledata["me"]["name"];
-  profile.email.value=profiledata["me"]["user"]["email"];
-  profile.city.value=profiledata["me"]["city"];
-  profile.isFemale.value=(profiledata["me"]["gender"]=="F")?true:false;
-  profile.state.value=profiledata["me"]["state"];
-  profile.country.value=profiledata["me"]["country"];
-  profile.id.value=profiledata["me"]["id"];
-  profile.image.value=profiledata["me"]["image"];
+  var profiledata = data.data;
+  profile.name.value = profiledata["me"]["name"];
+  profile.email.value = profiledata["me"]["user"]["email"];
+  profile.city.value = profiledata["me"]["city"];
+  profile.isFemale.value = (profiledata["me"]["gender"] == "F") ? true : false;
+  profile.state.value = profiledata["me"]["state"];
+  profile.country.value = profiledata["me"]["country"];
+  profile.id.value = profiledata["me"]["id"];
+  profile.image.value = profiledata["me"]["image"];
   return true;
-
 }

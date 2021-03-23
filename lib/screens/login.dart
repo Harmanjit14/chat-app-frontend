@@ -158,7 +158,7 @@ class _LoginSreenState extends State<LoginSreen> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   errorText: (sError) ? "Can't be empty!" : null,
-                  labelText: "name",
+                  labelText: "Username",
                   prefixIcon: Icon(Icons.account_circle),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -175,7 +175,7 @@ class _LoginSreenState extends State<LoginSreen> {
                 obscuringCharacter: "*",
                 decoration: InputDecoration(
                   errorText: (nError) ? "Can't be empty" : null,
-                  labelText: "city",
+                  labelText: "Password",
                   prefixIcon: Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -319,8 +319,8 @@ class _RegisterscreenState extends State<Registerscreen> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   errorText: (sEr) ? "Please enter this field" : null,
-                  labelText: "name",
-                  prefixIcon: Icon(Icons.account_circle),
+                  labelText: "Username",
+                  prefixIcon: Icon(Icons.alternate_email),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -336,8 +336,8 @@ class _RegisterscreenState extends State<Registerscreen> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   errorText: (cEr) ? "Please enter this field" : null,
-                  labelText: "state",
-                  prefixIcon: Icon(Icons.location_history_sharp),
+                  labelText: "Email",
+                  prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -355,7 +355,7 @@ class _RegisterscreenState extends State<Registerscreen> {
                 obscuringCharacter: "*",
                 decoration: InputDecoration(
                   errorText: (nEr) ? "Please enter this field" : null,
-                  labelText: "city",
+                  labelText: "Password",
                   prefixIcon: Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -421,7 +421,11 @@ class _RegisterscreenState extends State<Registerscreen> {
                         });
                       });
                     } else {
-                      Get.to(() => Profilescreen());
+                      Get.to(() => Profilescreen(
+                            username: name,
+                            password: city,
+                            email: state,
+                          ));
                     }
                   },
                   child: Container(
@@ -438,12 +442,18 @@ class _RegisterscreenState extends State<Registerscreen> {
   }
 }
 
-class RegidterButtonState extends GetxController {
+class RegisterButtonState extends GetxController {
   RxInt state = 0.obs;
 }
 
 // ignore: must_be_immutable
 class Profilescreen extends StatefulWidget {
+  final String username;
+  final String password;
+  final String email;
+
+  const Profilescreen({Key key, this.username, this.password, this.email})
+      : super(key: key);
   @override
   _ProfilescreenState createState() => _ProfilescreenState();
 }
@@ -459,6 +469,76 @@ class _ProfilescreenState extends State<Profilescreen> {
   bool nEr = false;
   bool cEr = false;
   bool sEr = false;
+
+  final btnState = Get.put(RegisterButtonState());
+
+  Widget registerChild() {
+    switch (btnState.state.value) {
+      case 0:
+        {
+          return Container(
+            child: BoldText(text: "Register", color: Colors.white, size: 20),
+          );
+        }
+        break;
+      case 1:
+        {
+          return SpinKitDoubleBounce(
+            color: Colors.white,
+            size: 50.0,
+          );
+        }
+        break;
+      case 2:
+        {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.verified),
+              SizedBox(
+                width: 7,
+              ),
+              Text(
+                "Success!",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700),
+              ),
+            ],
+          );
+        }
+        break;
+      case 3:
+        {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error),
+              SizedBox(
+                width: 7,
+              ),
+              Text(
+                "Username or email taken!",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700),
+              ),
+            ],
+          );
+        }
+        break;
+      default:
+        {
+          return Text(
+            "LogIn",
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+          );
+        }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -507,7 +587,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                 decoration: InputDecoration(
                   errorText: (nEr) ? "Please enter this field" : null,
                   labelText: "Name",
-                  prefixIcon: Icon(Icons.account_circle),
+                  prefixIcon: Icon(Icons.supervisor_account),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -542,6 +622,15 @@ class _ProfilescreenState extends State<Profilescreen> {
                       onChanged: (value) {
                         setState(() {
                           _value = value;
+                          if (value == 1) {
+                            dropdownValue = "M";
+                          }
+                          if (value == 2) {
+                            dropdownValue = "F";
+                          }
+                          if (value == 3) {
+                            dropdownValue = "O";
+                          }
                         });
                       }),
                 ),
@@ -554,7 +643,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                 decoration: InputDecoration(
                   errorText: (cEr) ? "Please enter this field" : null,
                   labelText: "City",
-                  prefixIcon: Icon(Icons.account_circle),
+                  prefixIcon: Icon(Icons.location_city),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -571,7 +660,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                 decoration: InputDecoration(
                   errorText: (sEr) ? "Please enter this field" : null,
                   labelText: "State",
-                  prefixIcon: Icon(Icons.account_circle),
+                  prefixIcon: Icon(Icons.location_pin),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -585,66 +674,84 @@ class _ProfilescreenState extends State<Profilescreen> {
                 height: 60,
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all<double>(0),
-                    ),
-                    onPressed: () async {
-                      if (name == "" && city == "" && state == "") {
-                        setState(() {
-                          nEr = true;
-                          cEr = true;
-                          sEr = true;
-                          Timer(Duration(seconds: 1), () {
-                            nEr = false;
-                            cEr = false;
-                            sEr = false;
-                          });
-                        });
-                      } else if (name == "") {
-                        setState(() {
-                          nEr = true;
-                        });
-                        Timer(Duration(seconds: 1), () {
-                          setState(() {
-                            nEr = false;
-                            cEr = false;
-                            sEr = false;
-                          });
-                        });
-                      } else if (state == "") {
-                        setState(() {
-                          sEr = true;
-                        });
-                        Timer(Duration(seconds: 1), () {
-                          setState(() {
-                            nEr = false;
-                            cEr = false;
-                            sEr = false;
-                          });
-                        });
-                      } else if (city == "") {
-                        setState(() {
-                          cEr = true;
-                        });
-                        Timer(Duration(seconds: 1), () {
-                          setState(() {
-                            nEr = false;
-                            cEr = false;
-                            sEr = false;
-                          });
-                        });
-                      } else {
-                        Get.to(() => Profilescreen());
-                      }
-                    },
-                    child: Container(
-                      child:
-                          BoldText(text: "Save", color: Colors.white, size: 20),
-                    ),
-                  ),
-                )),
+                    borderRadius: BorderRadius.circular(15),
+                    child: Obx(() {
+                      return ElevatedButton(
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all<double>(0),
+                        ),
+                        onPressed: () async {
+                          if (name == "" && city == "" && state == "") {
+                            setState(() {
+                              nEr = true;
+                              cEr = true;
+                              sEr = true;
+                              Timer(Duration(seconds: 1), () {
+                                nEr = false;
+                                cEr = false;
+                                sEr = false;
+                              });
+                            });
+                          } else if (name == "") {
+                            setState(() {
+                              nEr = true;
+                            });
+                            Timer(Duration(seconds: 1), () {
+                              setState(() {
+                                nEr = false;
+                                cEr = false;
+                                sEr = false;
+                              });
+                            });
+                          } else if (state == "") {
+                            setState(() {
+                              sEr = true;
+                            });
+                            Timer(Duration(seconds: 1), () {
+                              setState(() {
+                                nEr = false;
+                                cEr = false;
+                                sEr = false;
+                              });
+                            });
+                          } else if (city == "") {
+                            setState(() {
+                              cEr = true;
+                            });
+                            Timer(Duration(seconds: 1), () {
+                              setState(() {
+                                nEr = false;
+                                cEr = false;
+                                sEr = false;
+                              });
+                            });
+                          } else {
+                            btnState.state.value = 1;
+                            if (await register(
+                                widget.username,
+                                widget.email,
+                                widget.password,
+                                name,
+                                dropdownValue,
+                                city,
+                                state)) {
+                              btnState.state.value = 2;
+                              Timer(Duration(seconds: 1), () {
+                                Get.offAll(() => AllChats());
+                              });
+                            } else {
+                              btnState.state.value = 3;
+                              Timer(Duration(seconds: 2), () {
+                                btnState.state.value = 0;
+                              });
+                            }
+                          }
+                        },
+                        child: Container(
+                          child: registerChild(),
+                        ),
+                      );
+                    }))),
           ],
         ),
       )),
