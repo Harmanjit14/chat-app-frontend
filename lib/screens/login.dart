@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/screens/holder.dart';
 import 'package:Huddle/screens/log_holder.dart';
@@ -86,7 +85,7 @@ class _LoginSreenState extends State<LoginSreen> {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.verified),
+              Icon(Icons.error),
               SizedBox(
                 width: 7,
               ),
@@ -228,14 +227,17 @@ class _LoginSreenState extends State<LoginSreen> {
                             });
                           });
                         } else {
-                          btnState.buttonState.value = 0;
+                          btnState.buttonState.value = 1;
                           if (await login(username, password)) {
-                            btnState.buttonState.value = 1;
+                            btnState.buttonState.value = 2;
                             Timer(Duration(seconds: 1), () {
                               Get.offAll(() => AllChats());
                             });
                           } else {
-                            btnState.buttonState.value = 2;
+                            btnState.buttonState.value = 3;
+                            Timer(Duration(seconds: 1), () {
+                              btnState.buttonState.value = 0;
+                            });
                           }
                         }
                       },
@@ -253,10 +255,24 @@ class _LoginSreenState extends State<LoginSreen> {
 }
 
 // ignore: must_be_immutable
-class Registerscreen extends StatelessWidget {
+class Registerscreen extends StatefulWidget {
+  @override
+  _RegisterscreenState createState() => _RegisterscreenState();
+}
+
+class _RegisterscreenState extends State<Registerscreen> {
   String username = "";
+
   String email = "";
+
   String password = "";
+
+  bool uEr = false;
+
+  bool pEr = false;
+
+  bool eEr = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -284,15 +300,15 @@ class Registerscreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: BoldText(
-                text: "Sign up!",
+                text: "Hello there,",
                 size: 37,
                 color: Colors.black,
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 0, 20, 10),
+              margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: RegularText(
-                text: "Register yourself here.",
+                text: "Register yourself here and connect with your friends.",
                 size: 28,
                 color: Colors.black,
               ),
@@ -302,6 +318,7 @@ class Registerscreen extends StatelessWidget {
               child: TextField(
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
+                  errorText: (uEr) ? "Please enter this field" : null,
                   labelText: "Username",
                   prefixIcon: Icon(Icons.account_circle),
                   border: OutlineInputBorder(
@@ -318,6 +335,7 @@ class Registerscreen extends StatelessWidget {
               child: TextField(
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
+                  errorText: (eEr) ? "Please enter this field" : null,
                   labelText: "Email",
                   prefixIcon: Icon(Icons.alternate_email_rounded),
                   border: OutlineInputBorder(
@@ -336,6 +354,7 @@ class Registerscreen extends StatelessWidget {
                 obscureText: true,
                 obscuringCharacter: "*",
                 decoration: InputDecoration(
+                  errorText: (pEr) ? "Please enter this field" : null,
                   labelText: "Password",
                   prefixIcon: Icon(Icons.lock),
                   border: OutlineInputBorder(
@@ -348,29 +367,70 @@ class Registerscreen extends StatelessWidget {
               ),
             ),
             Container(
-                height: 60,
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all<double>(0),
-                    ),
-                    onPressed: () async {
-                      Get.to(() => Profilescreen());
-                      //TODO Harman yahaan button ki state management yaad rakhio...
-                      // if (await login(username, password)) {
-                      //   Get.offAll(() => AllChats());
-                      // } else {
-                      //   print("error");
-                      // }
-                    },
-                    child: Container(
-                      child:
-                          BoldText(text: "Next", color: Colors.white, size: 20),
-                    ),
+              height: 60,
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all<double>(0),
                   ),
-                )),
+                  onPressed: () async {
+                    if (username == "" && password == "" && email == "") {
+                      setState(() {
+                        pEr = true;
+                        eEr = true;
+                        uEr = true;
+                        Timer(Duration(seconds: 1), () {
+                          pEr = false;
+                          eEr = false;
+                          uEr = false;
+                        });
+                      });
+                    } else if (username == "") {
+                      setState(() {
+                        uEr = true;
+                      });
+                      Timer(Duration(seconds: 1), () {
+                        setState(() {
+                          pEr = false;
+                          eEr = false;
+                          uEr = false;
+                        });
+                      });
+                    } else if (email == "") {
+                      setState(() {
+                        eEr = true;
+                      });
+                      Timer(Duration(seconds: 1), () {
+                        setState(() {
+                          pEr = false;
+                          eEr = false;
+                          uEr = false;
+                        });
+                      });
+                    } else if (password == "") {
+                      setState(() {
+                        pEr = true;
+                      });
+                      Timer(Duration(seconds: 1), () {
+                        setState(() {
+                          pEr = false;
+                          eEr = false;
+                          uEr = false;
+                        });
+                      });
+                    } else {
+                      Get.to(() => Profilescreen());
+                    }
+                  },
+                  child: Container(
+                    child:
+                        BoldText(text: "Next", color: Colors.white, size: 20),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       )),

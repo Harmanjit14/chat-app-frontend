@@ -45,7 +45,7 @@ class Login extends StatelessWidget {
             ),
           ),
           Container(
-            height: 100,
+            height: 80,
             padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
             child: Container(
               decoration: BoxDecoration(
@@ -57,7 +57,7 @@ class Login extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Container(
-                    height: 80,
+                    height: 60,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.blue[700]),
@@ -69,13 +69,13 @@ class Login extends StatelessWidget {
                       child: BoldText(
                         text: "SignUp",
                         color: Colors.white,
-                        size: 20,
+                        size: 16,
                       ),
                     ),
                   )),
                   Expanded(
                       child: Container(
-                    height: 80,
+                  height: 60,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.grey[300],
@@ -88,7 +88,7 @@ class Login extends StatelessWidget {
                       child: BoldText(
                         text: "SignIn",
                         color: Colors.black,
-                        size: 20,
+                        size: 16,
                       ),
                     ),
                   ))
