@@ -136,7 +136,7 @@ class Messaging extends StatelessWidget {
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return chatbox(chats[index].userImage.toString(),
-                        chats[index].userName.toString(), "lastmsg", "2:00pm");
+                        chats[index].userName.toString(), "last message will come here", "8:00pm");
                   },
                 ),
         ],
