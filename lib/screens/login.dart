@@ -686,6 +686,8 @@ class _ProfilescreenState extends State<Profilescreen> {
                               nEr = true;
                               cEr = true;
                               sEr = true;
+                            });
+                            setState(() {
                               Timer(Duration(seconds: 1), () {
                                 nEr = false;
                                 cEr = false;
@@ -696,33 +698,39 @@ class _ProfilescreenState extends State<Profilescreen> {
                             setState(() {
                               nEr = true;
                             });
-                            Timer(Duration(seconds: 1), () {
-                              setState(() {
-                                nEr = false;
-                                cEr = false;
-                                sEr = false;
+                            setState(() {
+                              Timer(Duration(seconds: 1), () {
+                                setState(() {
+                                  nEr = false;
+                                  cEr = false;
+                                  sEr = false;
+                                });
                               });
                             });
                           } else if (state == "") {
                             setState(() {
                               sEr = true;
                             });
-                            Timer(Duration(seconds: 1), () {
-                              setState(() {
-                                nEr = false;
-                                cEr = false;
-                                sEr = false;
+                            setState(() {
+                              Timer(Duration(seconds: 1), () {
+                                setState(() {
+                                  nEr = false;
+                                  cEr = false;
+                                  sEr = false;
+                                });
                               });
                             });
                           } else if (city == "") {
                             setState(() {
                               cEr = true;
                             });
-                            Timer(Duration(seconds: 1), () {
-                              setState(() {
-                                nEr = false;
-                                cEr = false;
-                                sEr = false;
+                            setState(() {
+                              Timer(Duration(seconds: 1), () {
+                                setState(() {
+                                  nEr = false;
+                                  cEr = false;
+                                  sEr = false;
+                                });
                               });
                             });
                           } else {
