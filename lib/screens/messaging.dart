@@ -1,38 +1,50 @@
 import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/models/messageIndex.dart';
+import 'package:Huddle/server/getChats.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Messaging extends StatelessWidget {
   final indexController = Get.put(MessageIndex());
-  Widget chatbox(String image,String name, String lastmsg, String time){
+  Widget chatbox(String image, String name, String lastmsg, String time) {
     return Container(
       height: 70,
       margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
-        child: Row(
-          children: [
-            Container(
-              child: CircleAvatar(backgroundImage: AssetImage(image),radius: 30,),
+      child: Row(
+        children: [
+          Container(
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(image.toString()),
+              radius: 30,
             ),
-            Expanded(
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RegularText(text: name,color: Colors.black,size: 20,),
-                    RegularText(text: lastmsg,color: Colors.black,size: 15,),
-                  ],
-                ),
+          ),
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RegularText(
+                    text: name,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                  RegularText(
+                    text: lastmsg,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
               ),
             ),
-            Container(
-              child: Text(time),
-            ),
-          ],
-        ),
+          ),
+          Container(
+            child: Text(time),
+          ),
+        ],
+      ),
     );
   }
 
@@ -70,7 +82,8 @@ class Messaging extends StatelessWidget {
                         elevation: MaterialStateProperty.all(0),
                         backgroundColor: (indexController.index.value == 0)
                             ? MaterialStateProperty.all<Color>(Colors.white)
-                            : MaterialStateProperty.all<Color>(Colors.grey[300]),
+                            : MaterialStateProperty.all<Color>(
+                                Colors.grey[300]),
                       ),
                       onPressed: () {
                         indexController.index.value = 0;
@@ -85,9 +98,8 @@ class Messaging extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 10,
-                  
                 ),
-               Expanded(
+                Expanded(
                   child: Container(
                       child: Obx(
                     () => ElevatedButton(
@@ -95,7 +107,8 @@ class Messaging extends StatelessWidget {
                         elevation: MaterialStateProperty.all(0),
                         backgroundColor: (indexController.index.value == 1)
                             ? MaterialStateProperty.all<Color>(Colors.white)
-                            : MaterialStateProperty.all<Color>(Colors.grey[300]),
+                            : MaterialStateProperty.all<Color>(
+                                Colors.grey[300]),
                       ),
                       onPressed: () {
                         indexController.index.value = 1;
@@ -111,15 +124,21 @@ class Messaging extends StatelessWidget {
               ],
             ),
           ),
-          ListView(
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
-            children: [
-              chatbox("assets/gurleen.jpeg", "Gurleen", "Hellooo!", "4:11pm"),
-              Divider(),
-              chatbox("assets/harman.jpeg", "Harman", "Hieeeeeeeeee!", "4:16pm"),
-            ],
-          ),
+          (chats.isEmpty)
+              ? Container(
+                  child: BoldText(
+                    text: "Empty",
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: chats.length,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return chatbox(chats[index].userImage.toString(),
+                        chats[index].userName.toString(), "lastmsg", "2:00pm");
+                  },
+                ),
         ],
       ),
     );
