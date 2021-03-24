@@ -62,11 +62,11 @@ class Messaging extends StatelessWidget {
               child: ShadowBoldText(
                 color: Colors.black,
                 text: "Message",
-                size: 60,
+                size: 40,
               )),
           Container(
             padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-            height: 100,
+            height: 80,
             margin: EdgeInsets.fromLTRB(20, 30, 20, 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -89,9 +89,9 @@ class Messaging extends StatelessWidget {
                         indexController.index.value = 0;
                       },
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(13),
                         child: BoldText(
-                            text: "Chats", color: Colors.black, size: 20),
+                            text: "Chats", color: Colors.black, size: 16),
                       ),
                     ),
                   )),
@@ -114,9 +114,9 @@ class Messaging extends StatelessWidget {
                         indexController.index.value = 1;
                       },
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(13),
                         child: BoldText(
-                            text: "Find", color: Colors.black, size: 20),
+                            text: "Find", color: Colors.black, size: 16),
                       ),
                     ),
                   )),

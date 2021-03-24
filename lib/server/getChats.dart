@@ -56,7 +56,6 @@ Future<bool> getChats() async {
   }
   var chatdata = data.data["getChatIds"];
   for (var item in chatdata) {
-    print(item.toString()+"\n");
     if (item["userA"]["id"] == profile.id.value.toString()) {
       String chatId = item["id"];
       String userId = item["userB"]["id"];
