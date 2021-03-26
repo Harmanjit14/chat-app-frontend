@@ -3,6 +3,7 @@ import 'package:Huddle/models/chatModel.dart';
 import 'package:Huddle/screens/holder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class MyChatScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _MyChatScreenState extends State<MyChatScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              height: 80,
+              height: 70,
               color: Colors.blue[400],
               padding: EdgeInsets.fromLTRB(15, 10, 20, 10),
               child: Row(
@@ -71,7 +72,13 @@ class _MyChatScreenState extends State<MyChatScreen> {
                   .limit(500)
                   .snapshots(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (snapshot.isBlank) {
+                  return Expanded(
+                    child: Container(
+                      child: Text("No Chats Found"),
+                    ),
+                  );
+                } else if (snapshot.hasData) {
                   final text = snapshot.data.docs;
                   List<Widget> allConf = [];
                   for (var confession in text) {
@@ -90,8 +97,10 @@ class _MyChatScreenState extends State<MyChatScreen> {
                   );
                 } else
                   return Expanded(
-                    child: Container(
-                      child: Text("No Chats Found"),
+                    child: Center(
+                      child: SpinKitCircle(
+                        color: Colors.blue,
+                      ),
                     ),
                   );
               },
