@@ -1,18 +1,26 @@
 import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/models/chatModel.dart';
 import 'package:Huddle/screens/holder.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyChatScreen extends StatefulWidget {
   final ChatData obj;
-
   const MyChatScreen({Key key, this.obj}) : super(key: key);
   @override
   _MyChatScreenState createState() => _MyChatScreenState();
 }
 
 class _MyChatScreenState extends State<MyChatScreen> {
+  final firestore = FirebaseFirestore.instance;
+  Widget myMessage(String from, String message, String time) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Text(message),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,11 +65,37 @@ class _MyChatScreenState extends State<MyChatScreen> {
               ),
             ),
             Expanded(
-                child: ListView(
-              children: [
-                Text("hi"),
-              ],
-            )),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: firestore
+                    .collection('users')
+                    .orderBy("time")
+                    .limit(500)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final text = snapshot.data.docs;
+                    List<Widget> allConf = [];
+                    for (var confession in text) {
+                      final from = confession.get('from');
+                      final message = confession.get('message');
+                      final time = confession.get('time');
+                      Widget temp = myMessage(from, message, time);
+                      allConf.add(temp);
+                    }
+                    return Expanded(
+                      child: ListView(
+                        addRepaintBoundaries: true,
+                        shrinkWrap: true,
+                        children: allConf,
+                      ),
+                    );
+                  } else
+                    return Container(
+                      child: Text("No Chats Found"),
+                    );
+                },
+              ),
+            ),
             Container(
               height: 80,
               padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
