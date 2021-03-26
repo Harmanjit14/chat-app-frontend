@@ -1,49 +1,61 @@
 import 'package:Huddle/constants/text.dart';
+import 'package:Huddle/models/chatModel.dart';
 import 'package:Huddle/models/messageIndex.dart';
+import 'package:Huddle/screens/personalChat.dart';
 import 'package:Huddle/server/getChats.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Messaging extends StatelessWidget {
   final indexController = Get.put(MessageIndex());
-  Widget chatbox(String image, String name, String lastmsg, String time) {
+  Widget chatbox(
+      String image, String name, String lastmsg, String time, ChatData obj) {
     return Container(
       height: 70,
       margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
-      child: Row(
-        children: [
-          Container(
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(image.toString()),
-              radius: 30,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RegularText(
-                    text: name,
-                    color: Colors.black,
-                    size: 20,
-                  ),
-                  RegularText(
-                    text: lastmsg,
-                    color: Colors.black,
-                    size: 15,
-                  ),
-                ],
+      child: InkWell(
+        onTap: () {
+          Get.to(() => MyChatScreen(
+                obj: obj,
+              ));
+        },
+        child: Container(
+          child: Row(
+            children: [
+              Container(
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(image.toString()),
+                  radius: 30,
+                ),
               ),
-            ),
+              Expanded(
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.fromLTRB(20, 0, 10, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RegularText(
+                        text: name,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                      RegularText(
+                        text: lastmsg,
+                        color: Colors.black,
+                        size: 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                child: Text(time),
+              ),
+            ],
           ),
-          Container(
-            child: Text(time),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -135,8 +147,12 @@ class Messaging extends StatelessWidget {
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return chatbox(chats[index].userImage.toString(),
-                        chats[index].userName.toString(), "last message will come here", "8:00pm");
+                    return chatbox(
+                        chats[index].userImage.toString(),
+                        chats[index].userName.toString(),
+                        "last message will come here",
+                        "8:00pm",
+                        chats[index]);
                   },
                 ),
         ],
