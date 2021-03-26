@@ -30,7 +30,6 @@ dependencies:
   graphql: ^4.0.0-beta
   firebase_core: ^1.0.2
   firebase_storage: ^8.0.1
-  firebase_crashlytics: ^1.0.0
   cloud_firestore: ^1.0.3
 
 dev_dependencies:

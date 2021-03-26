@@ -64,37 +64,37 @@ class _MyChatScreenState extends State<MyChatScreen> {
                 ],
               ),
             ),
-            Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: firestore
-                    .collection('users')
-                    .orderBy("time")
-                    .limit(500)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final text = snapshot.data.docs;
-                    List<Widget> allConf = [];
-                    for (var confession in text) {
-                      final from = confession.get('from');
-                      final message = confession.get('message');
-                      final time = confession.get('time');
-                      Widget temp = myMessage(from, message, time);
-                      allConf.add(temp);
-                    }
-                    return Expanded(
-                      child: ListView(
-                        addRepaintBoundaries: true,
-                        shrinkWrap: true,
-                        children: allConf,
-                      ),
-                    );
-                  } else
-                    return Container(
+            StreamBuilder<QuerySnapshot>(
+              stream: firestore
+                  .collection('users')
+                  .orderBy("time")
+                  .limit(500)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final text = snapshot.data.docs;
+                  List<Widget> allConf = [];
+                  for (var confession in text) {
+                    final from = confession.get('from');
+                    final message = confession.get('message');
+                    final time = confession.get('time');
+                    Widget temp = myMessage(from, message, time);
+                    allConf.add(temp);
+                  }
+                  return Expanded(
+                    child: ListView(
+                      addRepaintBoundaries: true,
+                      shrinkWrap: true,
+                      children: allConf,
+                    ),
+                  );
+                } else
+                  return Expanded(
+                    child: Container(
                       child: Text("No Chats Found"),
-                    );
-                },
-              ),
+                    ),
+                  );
+              },
             ),
             Container(
               height: 80,
