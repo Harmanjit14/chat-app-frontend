@@ -1,5 +1,6 @@
 
 import 'package:Huddle/screens/messaging.dart';
+import 'package:Huddle/screens/newppl.dart';
 import 'package:Huddle/screens/settings.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,10 @@ class _AllChatsState extends State<AllChats> {
               icon: Icon(Icons.home),
               label: "Home",
             ),
+             BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: "Find",
+            ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Settings"),
           ]),
@@ -46,6 +51,7 @@ class _AllChatsState extends State<AllChats> {
         controller: controller,
         children: [
           Messaging(),
+          FindPeople(),
           Profile(),
         ],
         onPageChanged: (value) {

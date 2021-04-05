@@ -11,8 +11,8 @@ class Messaging extends StatelessWidget {
   Widget chatbox(
       String image, String name, String lastmsg, String time, ChatData obj) {
     return Container(
-      height: 70,
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+      height: 65,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 5),
       child: InkWell(
         onTap: () {
           Get.to(() => MyChatScreen(
@@ -25,7 +25,7 @@ class Messaging extends StatelessWidget {
               Container(
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(image.toString()),
-                  radius: 30,
+                  radius: 26,
                 ),
               ),
               Expanded(
@@ -39,12 +39,12 @@ class Messaging extends StatelessWidget {
                       RegularText(
                         text: name,
                         color: Colors.black,
-                        size: 20,
+                        size: 18,
                       ),
                       RegularText(
                         text: lastmsg,
                         color: Colors.black,
-                        size: 15,
+                        size: 13,
                       ),
                     ],
                   ),
@@ -70,78 +70,21 @@ class Messaging extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-              margin: EdgeInsets.fromLTRB(20, 30, 0, 0),
+              margin: EdgeInsets.fromLTRB(20, 30, 0, 20),
               child: ShadowBoldText(
                 color: Colors.black,
-                text: "Message",
+                text: "Messages",
                 size: 40,
               )),
-          Container(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-            height: 80,
-            margin: EdgeInsets.fromLTRB(20, 30, 20, 0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[300],
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      child: Obx(
-                    () => ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(0),
-                        backgroundColor: (indexController.index.value == 0)
-                            ? MaterialStateProperty.all<Color>(Colors.white)
-                            : MaterialStateProperty.all<Color>(
-                                Colors.grey[300]),
-                      ),
-                      onPressed: () {
-                        indexController.index.value = 0;
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(13),
-                        child: BoldText(
-                            text: "Chats", color: Colors.black, size: 16),
-                      ),
-                    ),
-                  )),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Container(
-                      child: Obx(
-                    () => ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(0),
-                        backgroundColor: (indexController.index.value == 1)
-                            ? MaterialStateProperty.all<Color>(Colors.white)
-                            : MaterialStateProperty.all<Color>(
-                                Colors.grey[300]),
-                      ),
-                      onPressed: () {
-                        indexController.index.value = 1;
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(13),
-                        child: BoldText(
-                            text: "Find", color: Colors.black, size: 16),
-                      ),
-                    ),
-                  )),
-                ),
-              ],
-            ),
-          ),
+          
           (chats.isEmpty)
-              ? Container(
-                  child: BoldText(
-                    text: "Empty",
+              ? Center(
+                child: Container(
+                    child: BoldText(
+                      text: "No chats found!\nFind friends to start conversations...",
+                    ),
                   ),
-                )
+              )
               : ListView.builder(
                   itemCount: chats.length,
                   shrinkWrap: true,
