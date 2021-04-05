@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MyChatScreen extends StatefulWidget {
   final ChatData obj;
@@ -204,7 +205,7 @@ class _MyChatScreenState extends State<MyChatScreen> {
                         "message": message,
                         "time": "${DateTime.now().microsecondsSinceEpoch}",
                         "when":
-                            "${DateTime.now().hour}:${DateTime.now().minute}"
+                            DateFormat.jm().format(DateTime.now()).toString(),
                       };
                       if (message != null && message != "") {
                         firestore
