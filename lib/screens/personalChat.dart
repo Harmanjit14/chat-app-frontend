@@ -1,6 +1,7 @@
 import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/models/chatModel.dart';
 import 'package:Huddle/screens/holder.dart';
+import 'package:Huddle/server/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -17,9 +18,74 @@ class _MyChatScreenState extends State<MyChatScreen> {
   final firestore = FirebaseFirestore.instance;
   Widget myMessage(String from, String message, String time) {
     return Container(
-      padding: EdgeInsets.all(10),
-      child: Text(message),
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(20)),
+            padding: EdgeInsets.all(15),
+            child: RegularText(
+              text: message,
+              color: Colors.black,
+              size: 15,
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: RegularText(
+                  text: time.toString(), color: Colors.grey, size: 12)),
+        ],
+      ),
     );
+  }
+
+  Widget otherMessage(String from, String message, String time) {
+    return Container(
+      alignment: Alignment.centerRight,
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(20)),
+            padding: EdgeInsets.all(15),
+            child: RegularText(
+              text: message,
+              color: Colors.black,
+              size: 15,
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: RegularText(
+                  text: time.toString(), color: Colors.grey, size: 12)),
+        ],
+      ),
+    );
+  }
+
+  final controller = TextEditingController();
+  String message = "";
+  @override
+  void initState() {
+    controller.addListener(() {
+      message = controller.text;
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,8 +133,8 @@ class _MyChatScreenState extends State<MyChatScreen> {
             ),
             StreamBuilder<QuerySnapshot>(
               stream: firestore
-                  .collection('users')
-                  .orderBy("time")
+                  .collection(widget.obj.collection.toString())
+                  .orderBy("time", descending: true)
                   .limit(500)
                   .snapshots(),
               builder: (context, snapshot) {
@@ -84,12 +150,18 @@ class _MyChatScreenState extends State<MyChatScreen> {
                   for (var confession in text) {
                     final from = confession.get('from');
                     final message = confession.get('message');
-                    final time = confession.get('time');
-                    Widget temp = myMessage(from, message, time);
-                    allConf.add(temp);
+                    final time = confession.get('when');
+                    if (from.toString() == profile.id.value.toString()) {
+                      Widget temp = otherMessage(from, message, time);
+                      allConf.add(temp);
+                    } else {
+                      Widget temp = myMessage(from, message, time);
+                      allConf.add(temp);
+                    }
                   }
                   return Expanded(
                     child: ListView(
+                      reverse: true,
                       addRepaintBoundaries: true,
                       shrinkWrap: true,
                       children: allConf,
@@ -113,6 +185,7 @@ class _MyChatScreenState extends State<MyChatScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: controller,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: "Message",
@@ -125,7 +198,23 @@ class _MyChatScreenState extends State<MyChatScreen> {
                   ),
                   IconButton(
                     icon: Icon(Icons.send),
-                    onPressed: () {},
+                    onPressed: () {
+                      Map<String, String> map = {
+                        "from": profile.id.value,
+                        "message": message,
+                        "time": "${DateTime.now().microsecondsSinceEpoch}",
+                        "when":
+                            "${DateTime.now().hour}:${DateTime.now().minute}"
+                      };
+                      if (message != null && message != "") {
+                        firestore
+                            .collection(widget.obj.collection.toString())
+                            .add(map);
+                        setState(() {
+                          controller.clear();
+                        });
+                      }
+                    },
                     color: Colors.blue,
                   )
                 ],
