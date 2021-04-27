@@ -1,4 +1,5 @@
 import 'package:Huddle/constants/text.dart';
+import 'package:Huddle/server/getLocation.dart';
 import 'package:flutter/material.dart';
 
 class FindPeople extends StatefulWidget {
@@ -52,7 +53,7 @@ class _FindPeopleState extends State<FindPeople> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,10 +62,14 @@ class _FindPeopleState extends State<FindPeople> {
                   Icon(
                     Icons.location_on,
                     color: Colors.grey[700],
+                    size: 22,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 6),
                   RegularText(
-                    
+                    text:
+                        "${currentLoc.street.toString()} ${currentLoc.dist.toString()} ${currentLoc.state.toString()}",
+                    color: Colors.grey[700],
+                    size: 15,
                   ),
                 ],
               ),

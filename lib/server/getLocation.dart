@@ -35,7 +35,7 @@ Future<int> getLocation() async {
       await placemarkFromCoordinates(location.latitude, location.longitude);
   currentLoc.state = placemarks[0].administrativeArea;
   currentLoc.dist = placemarks[0].locality;
-  currentLoc.street = placemarks[0].street;
+  currentLoc.street = placemarks[0].subLocality;
 
   return 1;
 }
