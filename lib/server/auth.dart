@@ -1,5 +1,6 @@
 import 'package:Huddle/models/profile.dart';
 import 'package:Huddle/server/getChats.dart';
+import 'package:Huddle/server/getLocation.dart';
 import "package:graphql/client.dart";
 
 String token = "";
@@ -42,6 +43,7 @@ Future<bool> login(String username, String password) async {
   token = data.data["tokenAuth"]["token"];
   await getProfile();
   await getChats();
+  await getLocation();
   return true;
 }
 
