@@ -1,6 +1,7 @@
 import 'package:Huddle/constants/text.dart';
 import 'package:Huddle/server/getLocation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class FindPeople extends StatefulWidget {
   @override
@@ -73,7 +74,33 @@ class _FindPeopleState extends State<FindPeople> {
                   ),
                 ],
               ),
-            )
+            ),
+            Container(
+              height: 120,
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: ListView.builder(
+                  itemCount: 29,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey
+                          )
+                        ]
+                      ),
+                      height: 80,
+                      width: 100,
+                      child: SizedBox.expand(
+                        
+                      ),
+                    );
+                  }),
+            ),
           ],
         ),
       ),
