@@ -1,11 +1,11 @@
-
 import 'package:Huddle/models/nearMe.dart';
 import 'package:Huddle/server/auth.dart';
+import 'package:Huddle/server/getLocation.dart';
 import 'package:graphql/client.dart';
 
 List<NearMe> nearMe = [];
 
-Future<bool> getChats() async {
+Future<bool> getNearMe() async {
   HttpLink _httpLink = HttpLink(
     'https://huddle-backend.herokuapp.com/graphql/',
   );
@@ -23,7 +23,7 @@ Future<bool> getChats() async {
 
   String queryString = """
 {
-  locationUser(location:"jal"){
+  locationUser(location:"${currentLoc.dist}"){
     id
     name
     image
@@ -43,7 +43,12 @@ Future<bool> getChats() async {
   }
   var nearMeData = data.data["getChatIds"];
   for (var item in nearMeData) {
-    
+    NearMe obj = new NearMe();
+    obj.id = item["id"];
+    obj.name = item["name"];
+    obj.isFemal = (item["gender"] == 'F') ? true : false;
+    obj.image = item["image"];
+    nearMe.add(obj);
   }
   return true;
 }
