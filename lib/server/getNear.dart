@@ -41,14 +41,20 @@ Future<bool> getNearMe() async {
     print(data.exception.toString());
     return false;
   }
-  var nearMeData = data.data["getChatIds"];
-  for (var item in nearMeData) {
-    NearMe obj = new NearMe();
-    obj.id = item["id"];
-    obj.name = item["name"];
-    obj.isFemal = (item["gender"] == 'F') ? true : false;
-    obj.image = item["image"];
-    nearMe.add(obj);
+  if (data.data.isEmpty) {
+    // print(data.exception.toString());
+    return true;
+  } else {
+    var nearMeData = data.data["locationUser"];
+    for (var item in nearMeData) {
+      NearMe obj = new NearMe();
+      obj.id = item["id"];
+      obj.name = item["name"];
+      obj.isFemal = (item["gender"] == 'F') ? true : false;
+      obj.image = item["image"];
+      nearMe.add(obj);
+    }
   }
+
   return true;
 }
